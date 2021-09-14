@@ -89,8 +89,10 @@ namespace SepaWriter
             xml.AppendChild(xml.CreateXmlDeclaration("1.0", Encoding.UTF8.BodyName.ToUpper(), null));
             var el = (XmlElement)xml.AppendChild(xml.CreateElement("Document"));
             el.SetAttribute("xmlns", "urn:iso:std:iso:20022:tech:xsd:" + SepaSchemaUtils.SepaSchemaToString(schema));
-            el.SetAttribute("xsi", "http://www.w3.org/2001/XMLSchema-instance");
-            el.SetAttribute("xsi", "schemaLocation", "urn:iso:std:iso:20022:tech:xsd:pain.001.001.03pain.001.001.03.xsd");
+            el.SetAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
+            var attr = xml.CreateAttribute("xsi", "schemaLocation", "http://www.w3.org/2001/XMLSchema-instance");
+            attr.Value = "urn:iso:std:iso:20022:tech:xsd:pain.001.001.03pain.001.001.03.xsd";
+            el.Attributes.Append(attr);
             el.NewElement("CstmrCdtTrfInitn");
 
             // Part 1: Group Header
