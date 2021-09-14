@@ -1,7 +1,7 @@
-﻿using System;
+﻿using SepaWriter.Utils;
+using System;
 using System.Text;
 using System.Xml;
-using SepaWriter.Utils;
 
 namespace SepaWriter
 {
@@ -86,10 +86,11 @@ namespace SepaWriter
             CheckMandatoryData();
 
             var xml = new XmlDocument();
-            xml.AppendChild(xml.CreateXmlDeclaration("1.0", Encoding.UTF8.BodyName, "yes"));
+            xml.AppendChild(xml.CreateXmlDeclaration("1.0", Encoding.UTF8.BodyName.ToUpper(), null));
             var el = (XmlElement)xml.AppendChild(xml.CreateElement("Document"));
-            el.SetAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
             el.SetAttribute("xmlns", "urn:iso:std:iso:20022:tech:xsd:" + SepaSchemaUtils.SepaSchemaToString(schema));
+            el.SetAttribute("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+            el.SetAttribute("xsi", "schemaLocation", "urn:iso:std:iso:20022:tech:xsd:pain.001.001.03pain.001.001.03.xsd");
             el.NewElement("CstmrCdtTrfInitn");
 
             // Part 1: Group Header
