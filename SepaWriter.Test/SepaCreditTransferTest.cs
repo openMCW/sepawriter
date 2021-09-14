@@ -164,8 +164,7 @@ namespace SepaWriter.Test
 
             Assert.AreEqual(total, transfert.HeaderControlSumInCents);
             Assert.AreEqual(total, transfert.PaymentControlSumInCents);
-            var res = transfert.AsXmlString();
-            Assert.AreEqual(MULTIPLE_ROW_RESULT, res);
+            Assert.AreEqual(MULTIPLE_ROW_RESULT, transfert.AsXmlString());
         }
 
         [Test]
